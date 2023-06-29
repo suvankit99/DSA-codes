@@ -37,6 +37,7 @@ class SegmentTree{
             int mid = low + (high - low) / 2 ;
             int left = query(2*ind + 1 , low , mid , l , r) ;
             int right = query(2*ind + 2 , mid + 1 , high , l , r) ;
+            // For range sum query instead of min(left , right) we just return left + right 
             return min(left , right) ;
         }
     }
