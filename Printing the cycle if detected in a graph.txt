@@ -1,0 +1,19 @@
+Printing the cycle if detected in a graph . 
+
+mark cycle start and cycle end and store parent of each node in a parent array .
+
+Then using parent array reconstruct the cycle . 
+
+Ex => 
+
+ // Printing the cycle
+    vector<int> cycle;
+    for (int v = cycleEnd; v != cycleStart; v = parent[v])
+    {
+        cycle.push_back(v);
+    }
+    cycle.push_back(cycleStart);
+    reverse(cycle.begin(), cycle.end());
+    cout << "Cycle = ";
+    for (auto it : cycle)
+        cout << it << " ";
