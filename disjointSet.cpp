@@ -1,4 +1,22 @@
 #include <bits/stdc++.h>
+#include<iostream>
+/*
+Notes - 
+
+Use of Disjoint 
+-> To determine if at any moment two nodes belong to same component or not in O(1) time
+If 2 nodes have the same ultimate parent then they belong to same component 
+
+-> Useful in dynamic graphs 
+
+Rank : Approximately Height of the growing component but height changes during path compression
+       so they are not exactly equal
+Size : Number of nodes in the growing component 
+
+Why always attach lower rank below upper rank guy ? 
+Because we don't want to increase the height . If we attach higher rank guy under lower rank guy , 
+then height would increase and path compression would take a longer time 
+*/
 using namespace std;
 class DisjointSet {
     vector<int> rank, parent, size; 
@@ -16,6 +34,8 @@ public:
     int findUPar(int node) {
         if(node == parent[node])
             return node; 
+        
+        // Path Compression 
         return parent[node] = findUPar(parent[node]); 
     }
 
@@ -23,6 +43,7 @@ public:
         int ulp_u = findUPar(u); 
         int ulp_v = findUPar(v); 
         if(ulp_u == ulp_v) return; 
+        // attach lower rank under higher rank guy 
         if(rank[ulp_u] < rank[ulp_v]) {
             parent[ulp_u] = ulp_v; 
         }
@@ -39,6 +60,7 @@ public:
         int ulp_u = findUPar(u); 
         int ulp_v = findUPar(v); 
         if(ulp_u == ulp_v) return; 
+        // attach lower size guy under higher size guy 
         if(size[ulp_u] < size[ulp_v]) {
             parent[ulp_u] = ulp_v; 
             size[ulp_v] += size[ulp_u]; 
